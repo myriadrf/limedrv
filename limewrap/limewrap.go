@@ -112,8 +112,6 @@ extern swig_intgo _wrap_LMS_SUCCESS_get_limewrap_eb4bb104b3fac108(void);
 extern swig_intgo _wrap_LMS_GetDeviceList_limewrap_eb4bb104b3fac108(swig_voidp arg1);
 extern swig_intgo _wrap_LMS_Open_limewrap_eb4bb104b3fac108(swig_voidp arg1, swig_type_1 arg2, uintptr_t arg3);
 extern swig_intgo _wrap_LMS_Close_limewrap_eb4bb104b3fac108(uintptr_t arg1);
-extern swig_intgo _wrap_LMS_Disconnect_limewrap_eb4bb104b3fac108(uintptr_t arg1);
-extern _Bool _wrap_LMS_IsOpen_limewrap_eb4bb104b3fac108(uintptr_t arg1, swig_intgo arg2);
 extern _Bool _wrap_LMS_CH_TX_get_limewrap_eb4bb104b3fac108(void);
 extern _Bool _wrap_LMS_CH_RX_get_limewrap_eb4bb104b3fac108(void);
 extern void _wrap_lms_range_t_min_set_limewrap_eb4bb104b3fac108(uintptr_t arg1, double arg2);
@@ -145,6 +143,7 @@ extern swig_intgo _wrap_LMS_PATH_LNAL_limewrap_eb4bb104b3fac108(void);
 extern swig_intgo _wrap_LMS_PATH_LNAW_limewrap_eb4bb104b3fac108(void);
 extern swig_intgo _wrap_LMS_PATH_TX1_limewrap_eb4bb104b3fac108(void);
 extern swig_intgo _wrap_LMS_PATH_TX2_limewrap_eb4bb104b3fac108(void);
+extern swig_intgo _wrap_LMS_PATH_AUTO_limewrap_eb4bb104b3fac108(void);
 extern swig_intgo _wrap_LMS_GetAntennaList_limewrap_eb4bb104b3fac108(uintptr_t arg1, _Bool arg2, swig_type_7 arg3, swig_voidp arg4);
 extern swig_intgo _wrap_LMS_SetAntenna_limewrap_eb4bb104b3fac108(uintptr_t arg1, _Bool arg2, swig_type_8 arg3, swig_type_9 arg4);
 extern swig_intgo _wrap_LMS_GetAntenna_limewrap_eb4bb104b3fac108(uintptr_t arg1, _Bool arg2, swig_type_10 arg3);
@@ -178,7 +177,6 @@ extern swig_intgo _wrap_LMS_GetNCOIndex_limewrap_eb4bb104b3fac108(uintptr_t arg1
 extern swig_intgo _wrap_LMS_SetGFIRCoeff_limewrap_eb4bb104b3fac108(uintptr_t arg1, _Bool arg2, swig_type_34 arg3, swig_intgo arg4, swig_voidp arg5, swig_type_35 arg6);
 extern swig_intgo _wrap_LMS_GetGFIRCoeff_limewrap_eb4bb104b3fac108(uintptr_t arg1, _Bool arg2, swig_type_36 arg3, swig_intgo arg4, swig_voidp arg5);
 extern swig_intgo _wrap_LMS_SetGFIR_limewrap_eb4bb104b3fac108(uintptr_t arg1, _Bool arg2, swig_type_37 arg3, swig_intgo arg4, _Bool arg5);
-extern swig_intgo _wrap_LMS_EnableCalibCache_limewrap_eb4bb104b3fac108(uintptr_t arg1, _Bool arg2);
 extern swig_intgo _wrap_LMS_EnableCache_limewrap_eb4bb104b3fac108(uintptr_t arg1, _Bool arg2);
 extern swig_intgo _wrap_LMS_Reset_limewrap_eb4bb104b3fac108(uintptr_t arg1);
 extern swig_intgo _wrap_LMS_ReadLMSReg_limewrap_eb4bb104b3fac108(uintptr_t arg1, swig_intgo arg2, swig_voidp arg3);
@@ -206,6 +204,7 @@ extern void _wrap_lms_stream_meta_t_flushPartialPacket_set_limewrap_eb4bb104b3fa
 extern _Bool _wrap_lms_stream_meta_t_flushPartialPacket_get_limewrap_eb4bb104b3fac108(uintptr_t arg1);
 extern uintptr_t _wrap_new_lms_stream_meta_t_limewrap_eb4bb104b3fac108(void);
 extern void _wrap_delete_lms_stream_meta_t_limewrap_eb4bb104b3fac108(uintptr_t arg1);
+extern swig_intgo _wrap_LMS_ALIGN_CH_PHASE_limewrap_eb4bb104b3fac108(void);
 extern void _wrap_lms_stream_t_handle_set_limewrap_eb4bb104b3fac108(uintptr_t arg1, swig_type_48 arg2);
 extern swig_type_49 _wrap_lms_stream_t_handle_get_limewrap_eb4bb104b3fac108(uintptr_t arg1);
 extern void _wrap_lms_stream_t_isTx_set_limewrap_eb4bb104b3fac108(uintptr_t arg1, _Bool arg2);
@@ -284,26 +283,28 @@ import "unsafe"
 import _ "runtime/cgo"
 import "sync"
 
+
 type _ unsafe.Pointer
+
+
 
 var Swig_escape_always_false bool
 var Swig_escape_val interface{}
 
+
 type _swig_fnptr *byte
 type _swig_memberptr *byte
 
+
 type _ sync.Mutex
 
-type swig_gostring struct {
-	p uintptr
-	n int
-}
 
+type swig_gostring struct { p uintptr; n int }
 func swigCopyString(s string) string {
-	p := *(*swig_gostring)(unsafe.Pointer(&s))
-	r := string((*[0x7fffffff]byte)(unsafe.Pointer(p.p))[:p.n])
-	Swig_free(p.p)
-	return r
+  p := *(*swig_gostring)(unsafe.Pointer(&s))
+  r := string((*[0x7fffffff]byte)(unsafe.Pointer(p.p))[:p.n])
+  Swig_free(p.p)
+  return r
 }
 
 func Swig_free(arg1 uintptr) {
@@ -433,7 +434,6 @@ type Lms_range_t interface {
 }
 
 type Lms_testsig_t int
-
 func _swig_getLMS_TESTSIG_NONE() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_TESTSIG_NONE_limewrap_eb4bb104b3fac108())
@@ -441,7 +441,6 @@ func _swig_getLMS_TESTSIG_NONE() (_swig_ret int) {
 }
 
 var LMS_TESTSIG_NONE int = _swig_getLMS_TESTSIG_NONE()
-
 func _swig_getLMS_TESTSIG_NCODIV8() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_TESTSIG_NCODIV8_limewrap_eb4bb104b3fac108())
@@ -449,7 +448,6 @@ func _swig_getLMS_TESTSIG_NCODIV8() (_swig_ret int) {
 }
 
 var LMS_TESTSIG_NCODIV8 int = _swig_getLMS_TESTSIG_NCODIV8()
-
 func _swig_getLMS_TESTSIG_NCODIV4() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_TESTSIG_NCODIV4_limewrap_eb4bb104b3fac108())
@@ -457,7 +455,6 @@ func _swig_getLMS_TESTSIG_NCODIV4() (_swig_ret int) {
 }
 
 var LMS_TESTSIG_NCODIV4 int = _swig_getLMS_TESTSIG_NCODIV4()
-
 func _swig_getLMS_TESTSIG_NCODIV8F() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_TESTSIG_NCODIV8F_limewrap_eb4bb104b3fac108())
@@ -465,7 +462,6 @@ func _swig_getLMS_TESTSIG_NCODIV8F() (_swig_ret int) {
 }
 
 var LMS_TESTSIG_NCODIV8F int = _swig_getLMS_TESTSIG_NCODIV8F()
-
 func _swig_getLMS_TESTSIG_NCODIV4F() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_TESTSIG_NCODIV4F_limewrap_eb4bb104b3fac108())
@@ -473,7 +469,6 @@ func _swig_getLMS_TESTSIG_NCODIV4F() (_swig_ret int) {
 }
 
 var LMS_TESTSIG_NCODIV4F int = _swig_getLMS_TESTSIG_NCODIV4F()
-
 func _swig_getLMS_TESTSIG_DC() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_TESTSIG_DC_limewrap_eb4bb104b3fac108())
@@ -481,7 +476,6 @@ func _swig_getLMS_TESTSIG_DC() (_swig_ret int) {
 }
 
 var LMS_TESTSIG_DC int = _swig_getLMS_TESTSIG_DC()
-
 func LMS_Init(arg1 uintptr) (_swig_ret int) {
 	var swig_r int
 	_swig_i_0 := arg1
@@ -572,7 +566,6 @@ func _swig_getLMS_PATH_NONE() (_swig_ret int) {
 }
 
 var LMS_PATH_NONE int = _swig_getLMS_PATH_NONE()
-
 func _swig_getLMS_PATH_LNAH() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_PATH_LNAH_limewrap_eb4bb104b3fac108())
@@ -580,7 +573,6 @@ func _swig_getLMS_PATH_LNAH() (_swig_ret int) {
 }
 
 var LMS_PATH_LNAH int = _swig_getLMS_PATH_LNAH()
-
 func _swig_getLMS_PATH_LNAL() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_PATH_LNAL_limewrap_eb4bb104b3fac108())
@@ -588,7 +580,6 @@ func _swig_getLMS_PATH_LNAL() (_swig_ret int) {
 }
 
 var LMS_PATH_LNAL int = _swig_getLMS_PATH_LNAL()
-
 func _swig_getLMS_PATH_LNAW() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_PATH_LNAW_limewrap_eb4bb104b3fac108())
@@ -596,7 +587,6 @@ func _swig_getLMS_PATH_LNAW() (_swig_ret int) {
 }
 
 var LMS_PATH_LNAW int = _swig_getLMS_PATH_LNAW()
-
 func _swig_getLMS_PATH_TX1() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_PATH_TX1_limewrap_eb4bb104b3fac108())
@@ -604,7 +594,6 @@ func _swig_getLMS_PATH_TX1() (_swig_ret int) {
 }
 
 var LMS_PATH_TX1 int = _swig_getLMS_PATH_TX1()
-
 func _swig_getLMS_PATH_TX2() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_PATH_TX2_limewrap_eb4bb104b3fac108())
@@ -612,7 +601,13 @@ func _swig_getLMS_PATH_TX2() (_swig_ret int) {
 }
 
 var LMS_PATH_TX2 int = _swig_getLMS_PATH_TX2()
+func _swig_getLMS_PATH_AUTO() (_swig_ret int) {
+	var swig_r int
+	swig_r = (int)(C._wrap_LMS_PATH_AUTO_limewrap_eb4bb104b3fac108())
+	return swig_r
+}
 
+var LMS_PATH_AUTO int = _swig_getLMS_PATH_AUTO()
 func LMS_GetAntennaList(arg1 uintptr, arg2 bool, arg3 int64, arg4 *string) (_swig_ret int) {
 	var swig_r int
 	_swig_i_0 := arg1
@@ -808,7 +803,6 @@ func LMS_GetChipTemperature(arg1 uintptr, arg2 int64, arg3 *float64) (_swig_ret 
 }
 
 type Lms_gfir_t int
-
 func _swig_getLMS_GFIR1() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_GFIR1_limewrap_eb4bb104b3fac108())
@@ -816,7 +810,6 @@ func _swig_getLMS_GFIR1() (_swig_ret int) {
 }
 
 var LMS_GFIR1 int = _swig_getLMS_GFIR1()
-
 func _swig_getLMS_GFIR2() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_GFIR2_limewrap_eb4bb104b3fac108())
@@ -824,7 +817,6 @@ func _swig_getLMS_GFIR2() (_swig_ret int) {
 }
 
 var LMS_GFIR2 int = _swig_getLMS_GFIR2()
-
 func _swig_getLMS_GFIR3() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_GFIR3_limewrap_eb4bb104b3fac108())
@@ -832,7 +824,6 @@ func _swig_getLMS_GFIR3() (_swig_ret int) {
 }
 
 var LMS_GFIR3 int = _swig_getLMS_GFIR3()
-
 func GetLMS_NCO_VAL_COUNT() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_NCO_VAL_COUNT_get_limewrap_eb4bb104b3fac108())
@@ -947,14 +938,6 @@ func LMS_SetGFIR(arg1 uintptr, arg2 bool, arg3 int64, arg4 Lms_gfir_t, arg5 bool
 	return swig_r
 }
 
-func LMS_EnableCalibCache(arg1 uintptr, arg2 bool) (_swig_ret int) {
-	var swig_r int
-	_swig_i_0 := arg1
-	_swig_i_1 := arg2
-	swig_r = (int)(C._wrap_LMS_EnableCalibCache_limewrap_eb4bb104b3fac108(C.uintptr_t(_swig_i_0), C._Bool(_swig_i_1)))
-	return swig_r
-}
-
 func LMS_EnableCache(arg1 uintptr, arg2 bool) (_swig_ret int) {
 	var swig_r int
 	_swig_i_0 := arg1
@@ -1024,6 +1007,8 @@ func LMS_WriteFPGAReg(arg1 uintptr, arg2 uint, arg3 uint16) (_swig_ret int) {
 	return swig_r
 }
 
+const BOARD_PARAM_DAC int = 0
+const BOARD_PARAM_TEMP int = 1
 func LMS_ReadCustomBoardParam(arg1 uintptr, arg2 byte, arg3 *float64, arg4 string) (_swig_ret int) {
 	var swig_r int
 	_swig_i_0 := arg1
@@ -1057,7 +1042,6 @@ const LMS_CLOCK_CGEN int = 0x0003
 const LMS_CLOCK_RXTSP int = 0x0004
 const LMS_CLOCK_TXTSP int = 0x0005
 const LMS_CLOCK_EXTREF int = 0x0006
-
 func LMS_GetClockFreq(arg1 uintptr, arg2 int64, arg3 *float64) (_swig_ret int) {
 	var swig_r int
 	_swig_i_0 := arg1
@@ -1206,6 +1190,13 @@ type Lms_stream_meta_t interface {
 	GetFlushPartialPacket() (_swig_ret bool)
 }
 
+func _swig_getLMS_ALIGN_CH_PHASE() (_swig_ret int) {
+	var swig_r int
+	swig_r = (int)(C._wrap_LMS_ALIGN_CH_PHASE_limewrap_eb4bb104b3fac108())
+	return swig_r
+}
+
+var LMS_ALIGN_CH_PHASE int = _swig_getLMS_ALIGN_CH_PHASE()
 type SwigcptrLms_stream_t uintptr
 
 func (p SwigcptrLms_stream_t) Swigcptr() uintptr {
@@ -1287,7 +1278,6 @@ func _swig_getlms_stream_t_LMS_FMT_F32_lms_stream_t() (_swig_ret int) {
 }
 
 var Lms_stream_tLMS_FMT_F32 int = _swig_getlms_stream_t_LMS_FMT_F32_lms_stream_t()
-
 func _swig_getlms_stream_t_LMS_FMT_I16_lms_stream_t() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_FMT_I16_lms_stream_t_limewrap_eb4bb104b3fac108())
@@ -1295,7 +1285,6 @@ func _swig_getlms_stream_t_LMS_FMT_I16_lms_stream_t() (_swig_ret int) {
 }
 
 var Lms_stream_tLMS_FMT_I16 int = _swig_getlms_stream_t_LMS_FMT_I16_lms_stream_t()
-
 func _swig_getlms_stream_t_LMS_FMT_I12_lms_stream_t() (_swig_ret int) {
 	var swig_r int
 	swig_r = (int)(C._wrap_LMS_FMT_I12_lms_stream_t_limewrap_eb4bb104b3fac108())
@@ -1303,7 +1292,6 @@ func _swig_getlms_stream_t_LMS_FMT_I12_lms_stream_t() (_swig_ret int) {
 }
 
 var Lms_stream_tLMS_FMT_I12 int = _swig_getlms_stream_t_LMS_FMT_I12_lms_stream_t()
-
 func (arg1 SwigcptrLms_stream_t) SetDataFmt(arg2 int) {
 	_swig_i_0 := arg1
 	_swig_i_1 := arg2
@@ -1634,7 +1622,7 @@ func (arg1 SwigcptrLms_dev_info_t) GetDeviceName() (_swig_ret string) {
 	swig_r_p := C._wrap_lms_dev_info_t_deviceName_get_limewrap_eb4bb104b3fac108(C.uintptr_t(_swig_i_0))
 	swig_r = *(*string)(unsafe.Pointer(&swig_r_p))
 	var swig_r_1 string
-	swig_r_1 = swigCopyString(swig_r)
+ swig_r_1 = swigCopyString(swig_r) 
 	return swig_r_1
 }
 
@@ -1653,7 +1641,7 @@ func (arg1 SwigcptrLms_dev_info_t) GetExpansionName() (_swig_ret string) {
 	swig_r_p := C._wrap_lms_dev_info_t_expansionName_get_limewrap_eb4bb104b3fac108(C.uintptr_t(_swig_i_0))
 	swig_r = *(*string)(unsafe.Pointer(&swig_r_p))
 	var swig_r_1 string
-	swig_r_1 = swigCopyString(swig_r)
+ swig_r_1 = swigCopyString(swig_r) 
 	return swig_r_1
 }
 
@@ -1672,7 +1660,7 @@ func (arg1 SwigcptrLms_dev_info_t) GetFirmwareVersion() (_swig_ret string) {
 	swig_r_p := C._wrap_lms_dev_info_t_firmwareVersion_get_limewrap_eb4bb104b3fac108(C.uintptr_t(_swig_i_0))
 	swig_r = *(*string)(unsafe.Pointer(&swig_r_p))
 	var swig_r_1 string
-	swig_r_1 = swigCopyString(swig_r)
+ swig_r_1 = swigCopyString(swig_r) 
 	return swig_r_1
 }
 
@@ -1691,7 +1679,7 @@ func (arg1 SwigcptrLms_dev_info_t) GetHardwareVersion() (_swig_ret string) {
 	swig_r_p := C._wrap_lms_dev_info_t_hardwareVersion_get_limewrap_eb4bb104b3fac108(C.uintptr_t(_swig_i_0))
 	swig_r = *(*string)(unsafe.Pointer(&swig_r_p))
 	var swig_r_1 string
-	swig_r_1 = swigCopyString(swig_r)
+ swig_r_1 = swigCopyString(swig_r) 
 	return swig_r_1
 }
 
@@ -1710,7 +1698,7 @@ func (arg1 SwigcptrLms_dev_info_t) GetProtocolVersion() (_swig_ret string) {
 	swig_r_p := C._wrap_lms_dev_info_t_protocolVersion_get_limewrap_eb4bb104b3fac108(C.uintptr_t(_swig_i_0))
 	swig_r = *(*string)(unsafe.Pointer(&swig_r_p))
 	var swig_r_1 string
-	swig_r_1 = swigCopyString(swig_r)
+ swig_r_1 = swigCopyString(swig_r) 
 	return swig_r_1
 }
 
@@ -1742,7 +1730,7 @@ func (arg1 SwigcptrLms_dev_info_t) GetGatewareVersion() (_swig_ret string) {
 	swig_r_p := C._wrap_lms_dev_info_t_gatewareVersion_get_limewrap_eb4bb104b3fac108(C.uintptr_t(_swig_i_0))
 	swig_r = *(*string)(unsafe.Pointer(&swig_r_p))
 	var swig_r_1 string
-	swig_r_1 = swigCopyString(swig_r)
+ swig_r_1 = swigCopyString(swig_r) 
 	return swig_r_1
 }
 
@@ -1761,7 +1749,7 @@ func (arg1 SwigcptrLms_dev_info_t) GetGatewareTargetBoard() (_swig_ret string) {
 	swig_r_p := C._wrap_lms_dev_info_t_gatewareTargetBoard_get_limewrap_eb4bb104b3fac108(C.uintptr_t(_swig_i_0))
 	swig_r = *(*string)(unsafe.Pointer(&swig_r_p))
 	var swig_r_1 string
-	swig_r_1 = swigCopyString(swig_r)
+ swig_r_1 = swigCopyString(swig_r) 
 	return swig_r_1
 }
 
@@ -1809,7 +1797,7 @@ func LMS_GetLibraryVersion() (_swig_ret string) {
 	swig_r_p := C._wrap_LMS_GetLibraryVersion_limewrap_eb4bb104b3fac108()
 	swig_r = *(*string)(unsafe.Pointer(&swig_r_p))
 	var swig_r_1 string
-	swig_r_1 = swigCopyString(swig_r)
+ swig_r_1 = swigCopyString(swig_r) 
 	return swig_r_1
 }
 
@@ -1818,7 +1806,7 @@ func LMS_GetLastErrorMessage() (_swig_ret string) {
 	swig_r_p := C._wrap_LMS_GetLastErrorMessage_limewrap_eb4bb104b3fac108()
 	swig_r = *(*string)(unsafe.Pointer(&swig_r_p))
 	var swig_r_1 string
-	swig_r_1 = swigCopyString(swig_r)
+ swig_r_1 = swigCopyString(swig_r) 
 	return swig_r_1
 }
 
@@ -1826,17 +1814,17 @@ const LMS_LOG_ERROR int = 1
 const LMS_LOG_WARNING int = 2
 const LMS_LOG_INFO int = 3
 const LMS_LOG_DEBUG int = 4
-
 func LMS_RegisterLogHandler(arg1 *_swig_fnptr) {
 	_swig_i_0 := arg1
 	C._wrap_LMS_RegisterLogHandler_limewrap_eb4bb104b3fac108(C.swig_voidp(_swig_i_0))
 }
 
+
 type SwigcptrStruct_SS_LMS7Parameter uintptr
 type Struct_SS_LMS7Parameter interface {
-	Swigcptr() uintptr
+	Swigcptr() uintptr;
 }
-
 func (p SwigcptrStruct_SS_LMS7Parameter) Swigcptr() uintptr {
 	return uintptr(p)
 }
+

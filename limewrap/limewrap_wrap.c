@@ -315,6 +315,7 @@ intgo _wrap_LMS_Close_limewrap_eb4bb104b3fac108(lms_device_t *_swig_go_0) {
   return _swig_go_result;
 }
 
+
 bool _wrap_LMS_CH_TX_get_limewrap_eb4bb104b3fac108() {
   bool result;
   bool _swig_go_result;
@@ -728,6 +729,18 @@ intgo _wrap_LMS_PATH_TX2_limewrap_eb4bb104b3fac108() {
   
   
   result = LMS_PATH_TX2;
+  
+  _swig_go_result = (intgo)result; 
+  return _swig_go_result;
+}
+
+
+intgo _wrap_LMS_PATH_AUTO_limewrap_eb4bb104b3fac108() {
+  int result;
+  intgo _swig_go_result;
+  
+  
+  result = LMS_PATH_AUTO;
   
   _swig_go_result = (intgo)result; 
   return _swig_go_result;
@@ -1354,21 +1367,6 @@ intgo _wrap_LMS_SetGFIR_limewrap_eb4bb104b3fac108(lms_device_t *_swig_go_0, bool
 }
 
 
-intgo _wrap_LMS_EnableCalibCache_limewrap_eb4bb104b3fac108(lms_device_t *_swig_go_0, bool _swig_go_1) {
-  lms_device_t *arg1 = (lms_device_t *) 0 ;
-  bool arg2 ;
-  int result;
-  intgo _swig_go_result;
-  
-  arg1 = *(lms_device_t **)&_swig_go_0; 
-  arg2 = (bool)_swig_go_1; 
-  
-  result = (int)LMS_EnableCalibCache(arg1,arg2);
-  _swig_go_result = result; 
-  return _swig_go_result;
-}
-
-
 intgo _wrap_LMS_EnableCache_limewrap_eb4bb104b3fac108(lms_device_t *_swig_go_0, bool _swig_go_1) {
   lms_device_t *arg1 = (lms_device_t *) 0 ;
   bool arg2 ;
@@ -1801,6 +1799,18 @@ void _wrap_delete_lms_stream_meta_t_limewrap_eb4bb104b3fac108(lms_stream_meta_t 
   
   free((char *) arg1);
   
+}
+
+
+intgo _wrap_LMS_ALIGN_CH_PHASE_limewrap_eb4bb104b3fac108() {
+  int result;
+  intgo _swig_go_result;
+  
+  
+  result = (1 << 16);
+  
+  _swig_go_result = result; 
+  return _swig_go_result;
 }
 
 
