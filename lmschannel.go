@@ -131,6 +131,7 @@ func (c *LMSChannel) String() string {
 
 func (c *LMSChannel) start() {
 	if c.stream != nil {
+		limewrap.LMS_Calibrate(c.parent.dev, !c.IsRX, int64(c.parentIndex), c.GetLPF(), 0)
 		limewrap.LMS_StartStream(c.stream)
 	}
 }
