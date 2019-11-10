@@ -322,6 +322,8 @@ func (d *LMSDevice) SetLPF(channelNumber int, isRX bool, bandwidth float64) {
 	if limewrap.LMS_SetLPFBW(d.dev, !isRX, int64(channelNumber), bandwidth) != 0 {
 		panic(fmt.Sprintf("Failed to set LPF Bandwidth in %s at %s: %s", d.DeviceInfo.DeviceName, d.DeviceInfo.Media, limewrap.LMS_GetLastErrorMessage()))
 	}
+
+	limewrap.LMS_Calibrate(d.dev, !isRX, int64(channelNumber), bandwidth, 0)
 }
 
 // GetLPF gets the analog Low Pass Filter bandwidth in Hertz
