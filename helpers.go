@@ -2,6 +2,7 @@ package limedrv
 
 import "C"
 import (
+	"context"
 	"encoding/binary"
 	"fmt"
 	"github.com/myriadrf/limedrv/limewrap"
@@ -55,7 +56,12 @@ func ConvertC64toI16(dst []int16, src []complex64) {
 	}
 }
 
-func streamTXLoop(con chan bool, channel LMSChannel, txCb func([]complex64, int)) {
+func streamTXLoop(ctx context.Context, channel LMSChannel, txCb func([]complex64, int)) {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("got panic recovered: ", r)
+		}
+	}()
 	//fmt.Fprintf(os.Stderr,"Worker Started")
 	running := true
 	sampleLength := floatSize
@@ -85,7 +91,7 @@ func streamTXLoop(con chan bool, channel LMSChannel, txCb func([]complex64, int)
 	//fmt.Fprintf(os.Stderr,"Worker Running")
 	for running {
 		select {
-		case _ = <-con:
+		case _ = <-ctx.Done():
 			//fmt.Fprintf(os.Stderr,"Worker Received stop", b)
 			running = false
 			return
@@ -112,7 +118,12 @@ func streamTXLoop(con chan bool, channel LMSChannel, txCb func([]complex64, int)
 	}
 }
 
-func streamRXLoop(c chan<- channelMessage, con chan bool, channel LMSChannel, send16 bool) {
+func streamRXLoop(ctx context.Context, c chan<- channelMessage, channel LMSChannel, send16 bool) {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("got panic recovered: ", r)
+		}
+	}()
 	//fmt.Fprintf(os.Stderr,"Worker Started")
 	running := true
 	sampleLength := floatSize
@@ -129,7 +140,7 @@ func streamRXLoop(c chan<- channelMessage, con chan bool, channel LMSChannel, se
 	//fmt.Println("Worker Running")
 	for running {
 		select {
-		case _ = <-con:
+		case _ = <-ctx.Done():
 			//fmt.Println("Worker Received stop")
 			running = false
 			return

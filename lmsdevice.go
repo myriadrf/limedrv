@@ -1,6 +1,7 @@
 package limedrv
 
 import (
+	"context"
 	"fmt"
 	"github.com/myriadrf/limedrv/limewrap"
 	"os"
@@ -195,9 +196,7 @@ func (d *LMSDevice) setupStream(channelNumber int, isRX bool) {
 }
 
 func (d *LMSDevice) deviceLoop() {
-
 	var cachedActiveChannels = make([]LMSChannel, 0)
-
 	lmsDataChannel := make(chan channelMessage)
 
 	// Check active
@@ -216,16 +215,15 @@ func (d *LMSDevice) deviceLoop() {
 		}
 	}
 
-	streamControl := make([]chan bool, len(cachedActiveChannels))
+	ctx, cancel := context.WithCancel(context.Background())
 
 	for i := 0; i < len(cachedActiveChannels); i++ {
-		streamControl[i] = make(chan bool)
 		ch := cachedActiveChannels[i]
 		ch.start()
 		if ch.IsRX {
-			go streamRXLoop(lmsDataChannel, streamControl[i], ch, d.i16mode)
+			go streamRXLoop(ctx, lmsDataChannel, ch, d.i16mode)
 		} else {
-			go streamTXLoop(streamControl[i], ch, d.txCallback)
+			go streamTXLoop(ctx, ch, d.txCallback)
 		}
 	}
 
@@ -246,15 +244,17 @@ func (d *LMSDevice) deviceLoop() {
 			}
 		}
 	}
+	cancel()
 
 	// Wait for stopping streams
 	//log.Println("Stopping streams")
-	for i := 0; i < len(streamControl); i++ {
+	for i := 0; i < len(cachedActiveChannels); i++ {
 		select {
-		case streamControl[i] <- true: // Send close signal
 		case <-lmsDataChannel: // Discard any data received in channel
 		}
+		cachedActiveChannels[i].stop()
 	}
+	close(lmsDataChannel)
 	d.controlChan <- true
 }
 
