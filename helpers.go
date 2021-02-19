@@ -22,6 +22,7 @@ func cleanString(s string) string {
 type channelMessage struct {
 	channel   int
 	data      []complex64
+	data16    []int16
 	timestamp uint64
 }
 
@@ -111,7 +112,7 @@ func streamTXLoop(con chan bool, channel LMSChannel, txCb func([]complex64, int)
 	}
 }
 
-func streamRXLoop(c chan<- channelMessage, con chan bool, channel LMSChannel) {
+func streamRXLoop(c chan<- channelMessage, con chan bool, channel LMSChannel, send16 bool) {
 	//fmt.Fprintf(os.Stderr,"Worker Started")
 	running := true
 	sampleLength := floatSize
@@ -150,7 +151,11 @@ func streamRXLoop(c chan<- channelMessage, con chan bool, channel LMSChannel) {
 				cm.data = fastconvert.ByteArrayToComplex64Array(chunk)
 			} else {
 				// Int16
-				cm.data = FastI16BufferIQConvert(chunk)
+				if send16 {
+					cm.data16 = fastconvert.ByteArrayToInt16LEArray(chunk)
+				} else {
+					cm.data = FastI16BufferIQConvert(chunk)
+				}
 			}
 
 			c <- cm

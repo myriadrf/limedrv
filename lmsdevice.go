@@ -42,6 +42,8 @@ type LMSDevice struct {
 	dev         uintptr
 	controlChan chan bool
 	running     bool
+	i16mode     bool
+	callback16  func([]int16, int, uint64)
 	callback    func([]complex64, int, uint64)
 	txCallback  func([]complex64, int)
 }
@@ -221,7 +223,7 @@ func (d *LMSDevice) deviceLoop() {
 		ch := cachedActiveChannels[i]
 		ch.start()
 		if ch.IsRX {
-			go streamRXLoop(lmsDataChannel, streamControl[i], ch)
+			go streamRXLoop(lmsDataChannel, streamControl[i], ch, d.i16mode)
 		} else {
 			go streamTXLoop(streamControl[i], ch, d.txCallback)
 		}
@@ -237,8 +239,10 @@ func (d *LMSDevice) deviceLoop() {
 		case <-d.controlChan:
 			running = false
 		case msg := <-lmsDataChannel:
-			if d.callback != nil {
+			if d.callback != nil && !d.i16mode {
 				d.callback(msg.data, msg.channel, msg.timestamp)
+			} else if d.callback16 != nil && d.i16mode {
+				d.callback16(msg.data16, msg.channel, msg.timestamp)
 			}
 		}
 	}
@@ -259,6 +263,19 @@ func (d *LMSDevice) deviceLoop() {
 // SetCallback sets the callback for samples.
 func (d *LMSDevice) SetCallback(cb func([]complex64, int, uint64)) {
 	d.callback = cb
+}
+
+// SetI16Callback sets the callback for i16 samples.
+func (d *LMSDevice) SetI16Callback(cb func([]int16, int, uint64)) {
+	d.callback16 = cb
+}
+
+// SetI16CallbackMode sets the callback to int16 mode.
+// This disables the callback set by SetCallback, sets the sample mode to Int16
+// and just outputs raw I16 to the callback SetI16Callback
+func (d *LMSDevice) SetI16CallbackMode(enabled bool) {
+	d.IQFormat = FormatInt16 // So far we only use that
+	d.i16mode = enabled
 }
 
 // SetTXCallback sets the callback to be called when any TX Channel needs samples
